@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		8E92F06C2D4BB09700AB9A7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E92F04C2D4BB09500AB9A7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E92F0532D4BB09500AB9A7F;
+			remoteInfo = "Field Mates";
+		};
+		8E92F0762D4BB09700AB9A7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E92F04C2D4BB09500AB9A7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E92F0532D4BB09500AB9A7F;
+			remoteInfo = "Field Mates";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8E92F0542D4BB09500AB9A7F /* Field Mates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Field Mates.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E92F06B2D4BB09700AB9A7F /* Field MatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Field MatesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E92F0752D4BB09700AB9A7F /* Field MatesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Field MatesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8E92F07D2D4BB09700AB9A7F /* Exceptions for "Field Mates" folder in "Field Mates" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8E92F0532D4BB09500AB9A7F /* Field Mates */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8E92F0562D4BB09500AB9A7F /* Field Mates */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8E92F07D2D4BB09700AB9A7F /* Exceptions for "Field Mates" folder in "Field Mates" target */,
+			);
+			path = "Field Mates";
+			sourceTree = "<group>";
+		};
+		8E92F06E2D4BB09700AB9A7F /* Field MatesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Field MatesTests";
+			sourceTree = "<group>";
+		};
+		8E92F0782D4BB09700AB9A7F /* Field MatesUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Field MatesUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8E92F0512D4BB09500AB9A7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E92F0682D4BB09700AB9A7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E92F0722D4BB09700AB9A7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8E92F04B2D4BB09500AB9A7F = {
+			isa = PBXGroup;
+			children = (
+				8E92F0562D4BB09500AB9A7F /* Field Mates */,
+				8E92F06E2D4BB09700AB9A7F /* Field MatesTests */,
+				8E92F0782D4BB09700AB9A7F /* Field MatesUITests */,
+				8E92F0552D4BB09500AB9A7F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8E92F0552D4BB09500AB9A7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E92F0542D4BB09500AB9A7F /* Field Mates.app */,
+				8E92F06B2D4BB09700AB9A7F /* Field MatesTests.xctest */,
+				8E92F0752D4BB09700AB9A7F /* Field MatesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8E92F0532D4BB09500AB9A7F /* Field Mates */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E92F07E2D4BB09700AB9A7F /* Build configuration list for PBXNativeTarget "Field Mates" */;
+			buildPhases = (
+				8E92F0502D4BB09500AB9A7F /* Sources */,
+				8E92F0512D4BB09500AB9A7F /* Frameworks */,
+				8E92F0522D4BB09500AB9A7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8E92F0562D4BB09500AB9A7F /* Field Mates */,
+			);
+			name = "Field Mates";
+			packageProductDependencies = (
+			);
+			productName = "Field Mates";
+			productReference = 8E92F0542D4BB09500AB9A7F /* Field Mates.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8E92F06A2D4BB09700AB9A7F /* Field MatesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E92F0832D4BB09700AB9A7F /* Build configuration list for PBXNativeTarget "Field MatesTests" */;
+			buildPhases = (
+				8E92F0672D4BB09700AB9A7F /* Sources */,
+				8E92F0682D4BB09700AB9A7F /* Frameworks */,
+				8E92F0692D4BB09700AB9A7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E92F06D2D4BB09700AB9A7F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8E92F06E2D4BB09700AB9A7F /* Field MatesTests */,
+			);
+			name = "Field MatesTests";
+			packageProductDependencies = (
+			);
+			productName = "Field MatesTests";
+			productReference = 8E92F06B2D4BB09700AB9A7F /* Field MatesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8E92F0742D4BB09700AB9A7F /* Field MatesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E92F0862D4BB09700AB9A7F /* Build configuration list for PBXNativeTarget "Field MatesUITests" */;
+			buildPhases = (
+				8E92F0712D4BB09700AB9A7F /* Sources */,
+				8E92F0722D4BB09700AB9A7F /* Frameworks */,
+				8E92F0732D4BB09700AB9A7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E92F0772D4BB09700AB9A7F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8E92F0782D4BB09700AB9A7F /* Field MatesUITests */,
+			);
+			name = "Field MatesUITests";
+			packageProductDependencies = (
+			);
+			productName = "Field MatesUITests";
+			productReference = 8E92F0752D4BB09700AB9A7F /* Field MatesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8E92F04C2D4BB09500AB9A7F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					8E92F0532D4BB09500AB9A7F = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					8E92F06A2D4BB09700AB9A7F = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 8E92F0532D4BB09500AB9A7F;
+					};
+					8E92F0742D4BB09700AB9A7F = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 8E92F0532D4BB09500AB9A7F;
+					};
+				};
+			};
+			buildConfigurationList = 8E92F04F2D4BB09500AB9A7F /* Build configuration list for PBXProject "Field Mates" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8E92F04B2D4BB09500AB9A7F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8E92F0552D4BB09500AB9A7F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8E92F0532D4BB09500AB9A7F /* Field Mates */,
+				8E92F06A2D4BB09700AB9A7F /* Field MatesTests */,
+				8E92F0742D4BB09700AB9A7F /* Field MatesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8E92F0522D4BB09500AB9A7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E92F0692D4BB09700AB9A7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E92F0732D4BB09700AB9A7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8E92F0502D4BB09500AB9A7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E92F0672D4BB09700AB9A7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E92F0712D4BB09700AB9A7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E92F06D2D4BB09700AB9A7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E92F0532D4BB09500AB9A7F /* Field Mates */;
+			targetProxy = 8E92F06C2D4BB09700AB9A7F /* PBXContainerItemProxy */;
+		};
+		8E92F0772D4BB09700AB9A7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E92F0532D4BB09500AB9A7F /* Field Mates */;
+			targetProxy = 8E92F0762D4BB09700AB9A7F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8E92F07F2D4BB09700AB9A7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Field Mates/Field_Mates.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Field Mates/Preview Content\"";
+				DEVELOPMENT_TEAM = 8B683A2ABG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Field Mates/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Field-Mates";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E92F0802D4BB09700AB9A7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Field Mates/Field_Mates.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Field Mates/Preview Content\"";
+				DEVELOPMENT_TEAM = 8B683A2ABG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Field Mates/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Field-Mates";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8E92F0812D4BB09700AB9A7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8E92F0822D4BB09700AB9A7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8E92F0842D4BB09700AB9A7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8B683A2ABG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Field-MatesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Field Mates.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Field Mates";
+			};
+			name = Debug;
+		};
+		8E92F0852D4BB09700AB9A7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8B683A2ABG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Field-MatesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Field Mates.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Field Mates";
+			};
+			name = Release;
+		};
+		8E92F0872D4BB09700AB9A7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8B683A2ABG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Field-MatesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Field Mates";
+			};
+			name = Debug;
+		};
+		8E92F0882D4BB09700AB9A7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8B683A2ABG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Field-MatesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Field Mates";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8E92F04F2D4BB09500AB9A7F /* Build configuration list for PBXProject "Field Mates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E92F0812D4BB09700AB9A7F /* Debug */,
+				8E92F0822D4BB09700AB9A7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E92F07E2D4BB09700AB9A7F /* Build configuration list for PBXNativeTarget "Field Mates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E92F07F2D4BB09700AB9A7F /* Debug */,
+				8E92F0802D4BB09700AB9A7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E92F0832D4BB09700AB9A7F /* Build configuration list for PBXNativeTarget "Field MatesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E92F0842D4BB09700AB9A7F /* Debug */,
+				8E92F0852D4BB09700AB9A7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E92F0862D4BB09700AB9A7F /* Build configuration list for PBXNativeTarget "Field MatesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E92F0872D4BB09700AB9A7F /* Debug */,
+				8E92F0882D4BB09700AB9A7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8E92F04C2D4BB09500AB9A7F /* Project object */;
+}
