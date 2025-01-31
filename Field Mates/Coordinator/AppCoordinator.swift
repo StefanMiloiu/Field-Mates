@@ -9,7 +9,7 @@
 import SwiftUI
 
 class AppCoordinator: ObservableObject {
-    @Published var currentView: AppView = .onboarding
+    @Published var currentView: AppView = .main
 
     enum AppView {
         case onboarding

@@ -20,6 +20,13 @@ struct ContentView: View {
                 MainView()
             }
         }
+        .onAppear {
+            if UserDefaults.standard.bool(forKey: "isLoggedIn") {
+                coordinator.showMainView()
+            } else {
+                coordinator.showOnboarding()
+            }
+        }
         .environmentObject(coordinator) // Share coordinator across views
     }
 }
