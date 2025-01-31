@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import CloudKit
 @testable import Field_Mates
 
 final class Field_MatesTests: XCTestCase {
@@ -18,18 +19,29 @@ final class Field_MatesTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    //MARK: - Test User CRUD
+    func testSaveUser() throws {
+        let user = User(id: UUID(), email: "test@test.com", firstName: "Test", lastName: "User")
+        GenericCloudKitManager().create(user) { result in
+            switch result {
+            case .success(let user):
+                XCTAssertNotNil(user)
+                XCTAssertEqual(user.email, "test@test.com")
+            case .failure(let error):
+                XCTAssertNil(error)
+            }
+        }
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testFetchUser() throws {
+        GenericCloudKitManager().fetchAll(ofType: User.self) { result in
+            switch result {
+            case .success(let users):
+                XCTAssertNotNil(users)
+                XCTAssertEqual(users.count, 1)
+            case .failure(let error):
+                XCTAssertNil(error)
+            }
         }
     }
 
