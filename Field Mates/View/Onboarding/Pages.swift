@@ -28,14 +28,14 @@ let pages = [
         content: "Take control of your football experience! Create your own games, invite friends or new players, and manage everything effortlessly from one place. Customize match details, including date, time, and location, to fit your schedule and preferences. Build the perfect game for your team.",
         image: "StadiumRealisticImage"
     ),
+//    Page(
+//        pageNr: 3,
+//        title: "Track Your Stats 📊",
+//        content: "Stay ahead of the game with in-depth performance tracking! Record your matches, monitor your goals, assists, and overall improvement. View historical data and insights to understand your strengths and focus on areas to improve. Turn your football journey into measurable success!",
+//        image: "MatesImage2"
+//    ),
     Page(
         pageNr: 3,
-        title: "Track Your Stats 📊",
-        content: "Stay ahead of the game with in-depth performance tracking! Record your matches, monitor your goals, assists, and overall improvement. View historical data and insights to understand your strengths and focus on areas to improve. Turn your football journey into measurable success!",
-        image: "MatesImage2"
-    ),
-    Page(
-        pageNr: 4,
         title: "Connect with\n Other Players 🤝",
         content: "Build your football network and find the perfect teammates! Chat with players, and exchange tips to improve your game. Whether you’re forming a new squad or making new friends, Field Mates helps you stay connected to a passionate football community.",
         image: "MatesImage"

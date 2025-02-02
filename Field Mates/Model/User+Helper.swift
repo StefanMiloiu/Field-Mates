@@ -8,10 +8,10 @@
 import CloudKit
 import Foundation
 
-struct User: Identifiable, CloudKitObject {
+struct User: CloudKitObject {
     
     // MARK: - Conformance to Identifiable
-    var id: UUID
+    var id: String
     
     // MARK: - CloudKitObject Protocol
     static var recordType: String { "User" } // The record type in CloudKit
@@ -20,7 +20,7 @@ struct User: Identifiable, CloudKitObject {
     // MARK: - Your Properties
     var email: String
     var phoneNumber: String?
-    var username: String?
+    var username: String
     var firstName: String
     var lastName: String
     var bio: String?
@@ -36,11 +36,11 @@ struct User: Identifiable, CloudKitObject {
     
     // Swift init
     init(
-        id: UUID = UUID(),
+        id: String,
         recordID: CKRecord.ID? = nil,
         email: String,
         phoneNumber: String? = nil,
-        username: String? = nil,
+        username: String,
         firstName: String,
         lastName: String,
         bio: String? = nil,
@@ -74,13 +74,14 @@ struct User: Identifiable, CloudKitObject {
         // REQUIRED FIELDS
         guard let email = record["email"] as? String,
               let firstName = record["firstName"] as? String,
-              let lastName = record["lastName"] as? String else {
+              let lastName = record["lastName"] as? String,
+        let username = record["username"] as? String
+        else {
             return nil
         }
         
         // OPTIONAL FIELDS
         let phoneNumber = record["phoneNumber"] as? String
-        let username = record["username"] as? String
         let bio = record["bio"] as? String
         let city = record["city"] as? String
         let country = record["country"] as? String
@@ -102,11 +103,7 @@ struct User: Identifiable, CloudKitObject {
         
         // If you store the UUID in a field named "uuid", parse it:
         // Otherwise, just generate a new one if you only rely on CloudKit ID
-        if let uuidString = record["uuid"] as? String, let uuid = UUID(uuidString: uuidString) {
-            self.id = uuid
-        } else {
-            self.id = UUID() // or fail, depending on your logic
-        }
+        let uuid = record["uuid"] as? String
         
         // If you store URL fields as String, you might parse them:
         if let profilePictureString = record["profilePicture"] as? String {
@@ -117,6 +114,7 @@ struct User: Identifiable, CloudKitObject {
         
         // Assign the rest
         self.recordID = record.recordID
+        self.id = uuid!
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
@@ -147,7 +145,7 @@ struct User: Identifiable, CloudKitObject {
         record["country"] = country as NSString?
         
         // If you keep a local UUID, you can store it in the record as well
-        record["uuid"] = id.uuidString as NSString
+        record["uuid"] = id as NSString
         
         // For URLs, CloudKit doesn't directly store `URL?`,
         // so you might store it as a String or convert it to a CKAsset.

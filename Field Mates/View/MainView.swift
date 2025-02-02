@@ -8,9 +8,29 @@
 import SwiftUI
 
 struct MainView: View {
+    
     var body: some View {
-        Text("Hello, World!")
+        TabView {
+            Text("Hello, World!")
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+            Text("Sign Out")
+                .tabItem {
+                    SignOutButton()
+                }
+            profile
+                .tabItem {
+                    Image(systemName: "gear")
+                }
+        }
     }
+    
+    var profile: some View {
+        ProfileView()
+    }
+    
 }
 
 #Preview {

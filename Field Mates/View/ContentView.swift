@@ -13,21 +13,19 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            switch coordinator.currentView {
+            switch coordinator.currentFlow {
             case .onboarding:
-                OnboardingView()
+                OnboardingContainerView()
+                    .environmentObject(coordinator.onboardingCoordinator)
             case .main:
                 MainView()
+                    .environmentObject(coordinator.mainCoordinator)
             }
         }
         .onAppear {
-            if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-                coordinator.showMainView()
-            } else {
-                coordinator.showOnboarding()
-            }
+            coordinator.start()
         }
-        .environmentObject(coordinator) // Share coordinator across views
+        .environmentObject(coordinator)
     }
 }
 

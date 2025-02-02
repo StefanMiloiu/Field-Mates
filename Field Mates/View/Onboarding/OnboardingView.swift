@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State private var currentPage = 3
+    @State private var currentPage = 0
     @EnvironmentObject var coordinator: AppCoordinator
 
     var body: some View {
@@ -59,6 +59,7 @@ struct OnboardingView: View {
 
                         if page.pageNr == pages.count {
                             SignInWithAppleView()
+                                .environmentObject(coordinator)
                             .buttonStyle(.borderedProminent)
                             .foregroundStyle(.primary)
                             .tint(
@@ -89,4 +90,5 @@ struct OnboardingView: View {
 
 #Preview {
     OnboardingView()
+        .environmentObject(AppCoordinator())
 }

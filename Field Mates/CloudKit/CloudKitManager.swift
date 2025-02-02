@@ -14,7 +14,7 @@ final class GenericCloudKitManager {
     func create<T: CloudKitObject>(_ object: T,
                                    completion: @escaping (Result<T, Error>) -> Void) {
         
-        let customRecordID = CKRecord.ID(recordName: object.id.uuidString)
+        let customRecordID = CKRecord.ID(recordName: object.id)
         let record = object.toCKRecord(CKRecord(recordType: T.recordType,
                                                 recordID: customRecordID))
         database.save(record) { savedRecord, error in

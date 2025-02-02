@@ -21,8 +21,8 @@ final class Field_MatesTests: XCTestCase {
 
     //MARK: - Test User CRUD
     func testSaveUser() throws {
-        let user = User(id: UUID(), email: "test@test.com", firstName: "Test", lastName: "User")
-        GenericCloudKitManager().create(user) { result in
+        let user = User(id: "1", email: "test@test.com", firstName: "Test", lastName: "User")
+        GenericCloudKitManager().create() { result in
             switch result {
             case .success(let user):
                 XCTAssertNotNil(user)
