@@ -10,7 +10,7 @@ import CoreData
 
 struct ContentView: View {
     @StateObject private var coordinator = AppCoordinator()
-
+    
     var body: some View {
         Group {
             switch coordinator.currentFlow {
@@ -20,6 +20,9 @@ struct ContentView: View {
             case .main:
                 MainView()
                     .environmentObject(coordinator.mainCoordinator)
+                    .environmentObject(coordinator.profileCoordinator)
+            default:
+                EmptyView()
             }
         }
         .onAppear {

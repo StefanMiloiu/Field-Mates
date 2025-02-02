@@ -14,10 +14,12 @@ class AppCoordinator: ObservableObject {
     
     let onboardingCoordinator = OnboardingCoordinator()
     let mainCoordinator = MainCoordinator()
+    let profileCoordinator = ProfileCoordinator()
     
     enum Flow {
         case onboarding
         case main
+        case profile
     }
     
     func start() {
@@ -32,6 +34,7 @@ class AppCoordinator: ObservableObject {
     func didFinishOnboarding() {
         currentFlow = .main
     }
+    
 }
 
 class OnboardingCoordinator: ObservableObject {
@@ -55,7 +58,24 @@ class OnboardingCoordinator: ObservableObject {
     func goToExistingAccount() {
         currentStep = .existingAccount
     }
-    // ...
+    
+}
+
+class ProfileCoordinator: ObservableObject {
+    @Published var currentStep: ProfileStep = .profile
+
+    enum ProfileStep {
+        case profile
+        case skillLevel
+    }
+    
+    func goToProfile() {
+        currentStep = .profile
+    }
+    
+    func goToSkillLevel() {
+        currentStep = .skillLevel
+    }
 }
 
 class MainCoordinator: ObservableObject {

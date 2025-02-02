@@ -9,6 +9,10 @@ import SwiftUI
 
 struct MainView: View {
     
+    @EnvironmentObject var profileCoodrinator: ProfileCoordinator
+    @State var connetctedUser: User? = nil
+    private let cloudKitManager = GenericCloudKitManager()
+
     var body: some View {
         TabView {
             Text("Hello, World!")
@@ -16,19 +20,32 @@ struct MainView: View {
                     Image(systemName: "house")
                     Text("Home")
                 }
-            Text("Sign Out")
+            SignOutButton()
                 .tabItem {
-                    SignOutButton()
+                    Text("Sign Out")
                 }
             profile
                 .tabItem {
                     Image(systemName: "gear")
                 }
         }
+        .onAppear {
+            let predicate = NSPredicate(format: "uuid == %@", UserDefaults.standard.appleUserID ?? "User ID")
+            cloudKitManager.fetchAll(ofType: User.self, predicate: predicate) { result in
+                switch result {
+                case .success(let users):
+                    if let currentUser = users.first {
+                        self.connetctedUser = currentUser
+                    }
+                case .failure(let error):
+                    print("No user found: \(error)")
+                }
+            }
+        }
     }
     
     var profile: some View {
-        ProfileView()
+        ProfileContainerView(connetctedUser: $connetctedUser)
     }
     
 }
