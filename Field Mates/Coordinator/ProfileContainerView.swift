@@ -12,27 +12,34 @@ struct ProfileContainerView: View {
     @Binding var connetctedUser: User?
     
     var body: some View {
-        VStack {
-            switch coordinator.currentStep {
-            case .profile:
-                ProfileView(connetctedUser: $connetctedUser)
-            case .skillLevel:
-                SkillLevelView(connectedUser: $connetctedUser)
-                    .toolbar {
-                        // Add a custom back button
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button(action: {
-                                coordinator.goToProfile()
-                            }) {
-                                Image(systemName: "chevron.left")
-                                    .foregroundColor(.blue)
-                            }
-                        }
-                    }
-            }
+        NavigationStack {
+            ProfileView(connectedUser: $connetctedUser)
+                .navigationDestination(isPresented: Binding(
+                    get: { coordinator.currentStep == .skillLevel },
+                    set: { _ in coordinator.goToProfile() } // Go back when dismissed
+                )) {
+                    SkillLevelView(connectedUser: $connetctedUser)
+                        .toolbarBackground(.visible, for: .navigationBar)
+                        .tint(.red)
+                }
+                .navigationDestination(isPresented: Binding(
+                    get: { coordinator.currentStep == .position },
+                    set: { _ in coordinator.goToProfile() } // Go back when dismissed
+                )) {
+                    PlayerPositionView(connectedUser: $connetctedUser)
+                        .toolbarBackground(.visible, for: .navigationBar)
+                        .tint(.red)
+                }
+                .navigationDestination(isPresented: Binding(
+                    get: { coordinator.currentStep == .personalInformation },
+                    set: { _ in coordinator.goToProfile() } // Go back when dismissed
+                )) {
+                    PersonalInformationView(connectedUser: $connetctedUser)
+                        .toolbarBackground(.visible, for: .navigationBar)
+                }
+                       
         }
-        // Optionally, wrap the entire container in a NavigationView if you want the navigation bar
-        .navigationViewStyle(StackNavigationViewStyle())
+        .tint(.primary)
     }
 }
 

@@ -7,8 +7,25 @@
 
 
 enum SkillLevel: Int, CaseIterable {
-    case beginner = 1
+    case beginner
     case intermediate
     case advanced
     case professional
+}
+
+extension SkillLevel {
+    
+    func localizedDescription() -> String {
+        switch self {
+        case .beginner:
+            return "Beginner"
+        case .intermediate:
+            return "Intermediate"
+        case .advanced:
+            return "Advanced"
+        case .professional:
+            return "Professional"
+        }
+    }
+    
 }

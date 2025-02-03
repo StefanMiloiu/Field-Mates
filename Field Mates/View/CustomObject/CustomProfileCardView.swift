@@ -10,68 +10,127 @@ import PhotosUI
 
 struct CustomProfileCardView: View {
     
+    // MARK: - Properties
+    
+    /// URL for the user's profile picture (fetched from local storage or the cloud)
     let profilePictureURL: URL?
+    
+    /// Binding to the connected user, enabling updates to propagate to parent views
     @Binding var connectedUser: User?
+    
+    /// User's email address
     let email: String
+    
+    /// User's last name
     let lastName: String
+    
+    /// User's first name
     let firstName: String
+    
+    /// Generic CloudKit manager for updating user data
     private let cloudKitManager = GenericCloudKitManager()
     
-    // MARK: - State pentru Photo Picker
+    // MARK: - State Variables
+    
+    /// Controls the visibility of the photo picker
     @State private var isShowingPhotoPicker = false
+    
+    /// The selected photo item from the photo picker
     @State private var selectedPhotoItem: PhotosPickerItem? = nil
-    @State private var selectedImage: UIImage? = nil  // imaginea încărcată local
+    
+    /// Controls the visibility of the action sheet
+    @State private var isShowingActionSheet: Bool = false
+    
+    /// Stores the selected image as a `UIImage`
+    @State private var selectedImage: UIImage? = nil
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
-            // 1) Background
+            // MARK: - Background
             RoundedRectangle(cornerRadius: 20)
                 .foregroundStyle(.gray.opacity(0.15))
             
-            // 2) Centered text
+            // MARK: - Centered User Info
             VStack(spacing: 8) {
                 Text(email)
+                    .font(.headline)
+                
+                Text(connectedUser?.username ?? "Username")
                     .font(.headline)
                 
                 Text("\(firstName) \(lastName)")
                     .font(.subheadline)
             }
         }
-        // 3) Bottom-left overlay (the "Ball" image)
-        .overlay(alignment: .bottomLeading) {
+        // MARK: - Bottom-Left Overlay (Icon)
+        .overlay(alignment: .topLeading) {
             Image("Ball")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                .padding(8) // small padding from corner
+                .frame(width: 75, height: 75)
+                .padding(-12) // Slight negative padding to position closer to the corner
         }
-        // 4) Top-right overlay (profile picture or placeholder)
+        // MARK: - Top-Right Overlay (Profile Picture or Placeholder)
         .overlay(alignment: .topTrailing) {
-            
-            // Dacă deja am selectat o imagine prin PhotosPicker, o afișăm
             if let selectedImage = selectedImage {
+                // Show the locally selected image
                 Image(uiImage: selectedImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 80, height: 80)
                     .clipShape(Circle())
                     .onTapGesture {
-                        isShowingPhotoPicker = true
+                        isShowingActionSheet = true // Show action sheet on tap
+                    }
+                    .actionSheet(isPresented: $isShowingActionSheet) {
+                        // Action sheet for selecting or removing the image
+                        ActionSheet(
+                            title: Text("Profile Picture"),
+                            message: Text("Choose an action"),
+                            buttons: [
+                                .default(Text("Select New Image")) {
+                                    isShowingPhotoPicker = true // Show the photo picker
+                                },
+                                .destructive(Text("Remove Image")) {
+                                    // Clear the selected image
+                                    self.selectedImage = nil
+                                    
+                                    // Clear the connected user's profile picture
+                                    if var connectedUser = connectedUser {
+                                        connectedUser.profilePicture = nil
+                                        self.connectedUser = nil // Reset binding to trigger a UI update
+                                        self.connectedUser = connectedUser
+                                        
+                                        // Update in CloudKit
+                                        cloudKitManager.update(connectedUser) { result in
+                                            switch result {
+                                            case .success:
+                                                print("Image cleared successfully")
+                                            case .failure(let error):
+                                                print("Failed to clear image: \(error)")
+                                            }
+                                        }
+                                    }
+                                },
+                                .cancel()
+                            ]
+                        )
                     }
                     .padding(8)
-                
-            // Dacă NU am selectat încă local, dar avem un URL -> AsyncImage
             } else if let url = profilePictureURL {
+                // Show the profile picture from the URL
                 AsyncImage(url: url) { phase in
                     switch phase {
                     case .empty:
-                        ProgressView()
+                        ProgressView() // Show a loading indicator
                     case .success(let image):
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                     case .failure(_):
-                        placeholderImage
+                        placeholderImage // Fallback to placeholder
                     @unknown default:
                         placeholderImage
                     }
@@ -79,12 +138,44 @@ struct CustomProfileCardView: View {
                 .frame(width: 80, height: 80)
                 .clipShape(Circle())
                 .onTapGesture {
-                    isShowingPhotoPicker = true
+                    isShowingActionSheet = true // Show action sheet on tap
+                }
+                .actionSheet(isPresented: $isShowingActionSheet) {
+                    // Action sheet for selecting or removing the image
+                    ActionSheet(
+                        title: Text("Profile Picture"),
+                        message: Text("Choose an action"),
+                        buttons: [
+                            .default(Text("Select New Image")) {
+                                isShowingPhotoPicker = true
+                            },
+                            .destructive(Text("Remove Image")) {
+                                selectedImage = nil
+                                
+                                // Clear the connected user's profile picture
+                                if var connectedUser = connectedUser {
+                                    connectedUser.profilePicture = nil
+                                    self.connectedUser = nil // Reset binding to trigger a UI update
+                                    self.connectedUser = connectedUser
+                                    
+                                    // Update in CloudKit
+                                    cloudKitManager.update(connectedUser) { result in
+                                        switch result {
+                                        case .success:
+                                            print("Image cleared successfully")
+                                        case .failure(let error):
+                                            print("Failed to clear image: \(error)")
+                                        }
+                                    }
+                                }
+                            },
+                            .cancel()
+                        ]
+                    )
                 }
                 .padding(8)
-                
-            // Niciun URL, niciun selectedImage -> placeholder
             } else {
+                // Show the placeholder image if no image is selected
                 placeholderImage
                     .onTapGesture {
                         isShowingPhotoPicker = true
@@ -95,30 +186,29 @@ struct CustomProfileCardView: View {
         .frame(height: 150)
         .padding()
         
-        // 5) PhotosPicker. Când isShowingPhotoPicker == true, apare interfața
+        // MARK: - Photo Picker
         .photosPicker(
             isPresented: $isShowingPhotoPicker,
             selection: $selectedPhotoItem,
             matching: .images
         )
-        // 6) Când se schimbă `selectedPhotoItem`, încărcăm datele și convertim la UIImage
+        // MARK: - Handle Selected Photo
         .onChange(of: selectedPhotoItem) {
             Task {
-                // Încearcă să încarci datele din item
                 if let selectedPhotoItem,
                    let data = try? await selectedPhotoItem.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
                     
-                    // Aici ai `uiImage`. Poți să-l salvezi local, trimite la CloudKit etc.
+                    // Update the connected user's profile picture
                     guard var connectedUser = connectedUser else { return }
                     selectedImage = uiImage
                     connectedUser.setProfilePicture(data)
                     cloudKitManager.update(connectedUser) { result in
                         switch result {
                         case .success(_):
-                            print("Succed")
+                            print("Image updated successfully")
                         case .failure(_):
-                            print("Insucces")
+                            print("Failed to update image")
                         }
                     }
                 }
@@ -126,7 +216,8 @@ struct CustomProfileCardView: View {
         }
     }
     
-    /// A simple fallback image (could be your own placeholder asset).
+    // MARK: - Placeholder Image
+    /// A fallback image displayed when no profile picture is available
     private var placeholderImage: some View {
         Image(systemName: "person.crop.circle.fill")
             .resizable()

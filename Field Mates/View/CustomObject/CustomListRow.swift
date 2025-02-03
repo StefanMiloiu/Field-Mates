@@ -11,10 +11,10 @@ import SwiftUI
 
 struct CustomListRow: View {
     
-    @State var rowLabel: String
-    @State var rowContent: String
-    @State var rowTintColor: Color
-    @State var rowIcon: String
+    let rowLabel: String
+    let rowContent: String
+    let rowTintColor: Color
+    let rowIcon: String
     
     @State var destinationLink: String? = nil
     

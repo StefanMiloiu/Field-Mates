@@ -18,15 +18,17 @@ struct MainView: View {
             Text("Hello, World!")
                 .tabItem {
                     Image(systemName: "house")
-                    Text("Home")
+                    Text("Feed")
                 }
-            SignOutButton()
+            activeChats
                 .tabItem {
-                    Text("Sign Out")
+                    Image(systemName: "message")
+                    Text("Chat")
                 }
             profile
                 .tabItem {
-                    Image(systemName: "gear")
+                    Image(systemName: "person.crop.circle")
+                    Text("Player")
                 }
         }
         .onAppear {
@@ -48,8 +50,13 @@ struct MainView: View {
         ProfileContainerView(connetctedUser: $connetctedUser)
     }
     
+    var activeChats: some View {
+        Text("Chats")
+    }
+    
 }
 
 #Preview {
     MainView()
+        .environmentObject(ProfileCoordinator())
 }

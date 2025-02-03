@@ -63,18 +63,40 @@ class OnboardingCoordinator: ObservableObject {
 
 class ProfileCoordinator: ObservableObject {
     @Published var currentStep: ProfileStep = .profile
+    @Published var navigationController: UINavigationController?
 
+    func start(from navigationController: UINavigationController?) {
+        self.navigationController = navigationController
+        goToProfile() // Set the initial screen
+    }
     enum ProfileStep {
         case profile
         case skillLevel
+        case position
+        case personalInformation
     }
     
     func goToProfile() {
         currentStep = .profile
+        navigationController?.popToRootViewController(animated: true) // Ensure it pops back
     }
-    
+
     func goToSkillLevel() {
         currentStep = .skillLevel
+        let skillLevelView = UIHostingController(rootView: SkillLevelView(connectedUser: .constant(nil)))
+        navigationController?.pushViewController(skillLevelView, animated: true)
+    }
+    
+    func goToPosition() {
+        currentStep = .position
+        let positionView = UIHostingController(rootView: PlayerPositionView(connectedUser: .constant(nil)))
+        navigationController?.pushViewController(positionView, animated: true)
+    }
+    
+    func goToPersonalInformation() {
+        currentStep = .personalInformation
+        let personalInformationView = UIHostingController(rootView: PersonalInformationView(connectedUser: .constant(nil)))
+        navigationController?.pushViewController(personalInformationView, animated: true)
     }
 }
 

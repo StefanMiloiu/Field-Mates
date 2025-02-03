@@ -11,24 +11,22 @@ struct ProfileView: View {
     @EnvironmentObject var coordinator: AppCoordinator
     @State private var cloudKitManager = GenericCloudKitManager()
     @State private var profilePicURL: URL?
-    @Binding var connetctedUser: User?
+    @State private var skillLevel: String = "Not Defined"
+    @Binding var connectedUser: User?
     
     var body: some View {
         VStack {
             //MARK: - Profile
             Section {
                 CustomProfileCardView(profilePictureURL: profilePicURL,
-                                      connectedUser: $connetctedUser,
-                                      email: connetctedUser?.email ?? "Could not retrieve email\n",
-                                      lastName: connetctedUser?.lastName ?? "Could not retrieve last name\n",
-                                      firstName: connetctedUser?.firstName ?? "Could not retrieve first name\n")
-            } header: {
-                Text("\(connetctedUser?.username ?? "")")
-                    .fontWeight(.medium)
+                                      connectedUser: $connectedUser,
+                                      email: connectedUser?.email ?? "Could not retrieve email\n",
+                                      lastName: connectedUser?.lastName ?? "Could not retrieve last name\n",
+                                      firstName: connectedUser?.firstName ?? "Could not retrieve first name\n")
             }
             .onAppear {
-                if connetctedUser != nil,
-                   let profileURL = connetctedUser?.profilePicture {
+                if connectedUser != nil,
+                   let profileURL = connectedUser?.profilePicture {
                     do {
                         profilePicURL = try Data.fileURL(for: profileURL)
                     } catch {
@@ -45,29 +43,29 @@ struct ProfileView: View {
                         Button(action: {
                             coordinator.profileCoordinator.goToSkillLevel()
                         }) {
-                            CustomListRow(rowLabel: "\(connetctedUser?.skillToString() ?? "Not Specified")",
+                            CustomListRow(rowLabel: "\(connectedUser?.skillLevel?.localizedDescription() ?? "Not Specified")",
                                           rowContent: "Skill Level",
-                                          rowTintColor: .green,
+                                          rowTintColor: .red,
                                           rowIcon: "soccerball")
                         }
                         
                         Button(action: {
-                            
+                            coordinator.profileCoordinator.goToPosition()
                         }) {
-                            CustomListRow(rowLabel: "\(connetctedUser?.preferredPositionToString() ?? "Not Specified")",
+                            CustomListRow(rowLabel: "\(connectedUser?.preferredPositionToString() ?? "Not Specified")",
                                           rowContent: "Player position",
-                                          rowTintColor: .green,
+                                          rowTintColor: .red,
                                           rowIcon: "figure.australian.football")
                         }
                         
                         Button(action: {
-                            // ...
+                            coordinator.profileCoordinator.goToPersonalInformation()
                         }) {
                             CustomListRow(
-                                rowLabel: "Log out",
-                                rowContent: "",
+                                rowLabel: "Personal Information",
+                                rowContent: "Matches",
                                 rowTintColor: .gray,
-                                rowIcon: "door.left.hand.open"
+                                rowIcon: "person.crop.circle.fill"
                             )
                         }
                     }
@@ -85,7 +83,11 @@ struct ProfileView: View {
                         }
                         
                         Button(action: {
-                            // ...
+                            UserDefaults.standard.appleUserID = ""
+                            UserDefaults.standard.seenOnboarding = false
+                            UserDefaults.standard.isLoggedIn = false
+                            coordinator.onboardingCoordinator.goToWelcome()
+                            coordinator.start()
                         }) {
                             CustomListRow(
                                 rowLabel: "Log out",
@@ -97,9 +99,12 @@ struct ProfileView: View {
                     }
             }
         }
+        .onChange(of: connectedUser?.skillLevel) {
+            skillLevel = (connectedUser?.skillToString())!
+        }
     }
 }
 
 #Preview {
-    ProfileView(connetctedUser: .constant(nil))
+    ProfileView(connectedUser: .constant(nil))
 }
