@@ -12,7 +12,8 @@ import CloudKit
 //MARK: - ContentView
 /// The main entry view for the application, managing navigation flows.
 struct ContentView: View {
-    
+    @EnvironmentObject private var launchScreenState: LaunchScreenStateManager
+
     /// The application's main coordinator, managing the flow between onboarding and the main app.
     @StateObject private var coordinator = AppCoordinator()
     
@@ -32,6 +33,10 @@ struct ContentView: View {
             default:
                 EmptyView() // Fallback case to handle unexpected states.
             }
+        }
+        .task {
+            try? await Task.sleep(for: Duration.seconds(1))
+            self.launchScreenState.dismiss()
         }
         .onAppear {
             coordinator.start() // Determine the initial app flow.

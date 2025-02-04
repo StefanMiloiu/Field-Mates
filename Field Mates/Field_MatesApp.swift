@@ -10,11 +10,18 @@ import SwiftUI
 @main
 struct Field_MatesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // Declare AppDelegate here
-
+    @StateObject var launchScreenState = LaunchScreenStateManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(appDelegate.userViewModel) // Inject environment objects
+            ZStack {
+                ContentView()
+                if launchScreenState.state != .finished {
+                    LaunchScreenView()
+                }
+            }
+            .environmentObject(appDelegate.userViewModel) // Inject environment objects
+            .environmentObject(launchScreenState)
         }
     }
 }
