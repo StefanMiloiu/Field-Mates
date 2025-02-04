@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct PlayerPositionView: View {
-    @Binding var connectedUser: User?
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var selectedIndex: Int = 4
-    private let cloudKitManager = GenericCloudKitManager()
 
     let allPositions = ["Goalkeeper", "Defender", "Midfielder", "Forward", "Unknown"]
     
@@ -20,7 +19,7 @@ struct PlayerPositionView: View {
                 .font(.headline)
                 .padding()
             
-            SemicircleSlider(selectedIndex: $selectedIndex, labels: allPositions, connectedUser: connectedUser)
+            SemicircleSlider(selectedIndex: $selectedIndex, labels: allPositions)
                 .frame(height: 250)
             
             Spacer(minLength: 50) // Reserve space for the description to prevent layout shifts
@@ -33,39 +32,25 @@ struct PlayerPositionView: View {
             Text("\(allPositions[selectedIndex])")
                 .font(.title)
                 .padding()
-
         }
         .onChange(of: selectedIndex) {
-            guard connectedUser != nil else { return }
             guard selectedIndex != 4 else {
-                connectedUser?.preferredPosition = nil
-                cloudKitManager.update(connectedUser!) { result in
-                    switch result {
-                    case .success(_):
-                        print("Succesfuly removed position")
-                    case .failure(_):
-                        print("Failure removing position")
-                    }
-                }
+                userViewModel.user?.preferredPosition = nil
+                userViewModel.update(userViewModel.user!)
                 return
             }
-            var connectedUserCopy = connectedUser
+            guard userViewModel.user != nil,
+                  userViewModel.user?.preferredPosition != Position.allCases[selectedIndex] else { return }
+            var connectedUserCopy = userViewModel.user
             connectedUserCopy?.preferredPosition = Position.allCases[selectedIndex]
-            connectedUser = nil
-            connectedUser = connectedUserCopy
-            guard connectedUser != nil else { return }
-            cloudKitManager.update(connectedUser!) { result in
-                switch result {
-                case .success(_):
-                    print("Succesfully updated position")
-                case .failure(_):
-                    print("Failure updating position")
-                }
-            }
+            userViewModel.user = nil
+            userViewModel.user = connectedUserCopy
+            userViewModel.update(userViewModel.user!)
         }
         .onAppear {
-            if connectedUser?.preferredPosition != nil {
-                selectedIndex = Int((connectedUser?.preferredPosition!)!.rawValue) ??  1
+            if userViewModel.user?.preferredPosition != nil {
+                let unwrappedPreferredPosition = userViewModel.user?.preferredPosition!
+                selectedIndex = Position.allCases.firstIndex(of: unwrappedPreferredPosition!)!
             }
         }
         .navigationBarTitle("Position", displayMode: .inline)
@@ -73,5 +58,5 @@ struct PlayerPositionView: View {
 }
 
 #Preview {
-    PlayerPositionView(connectedUser: .constant(nil))
+    PlayerPositionView()
 }

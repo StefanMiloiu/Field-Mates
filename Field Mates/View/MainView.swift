@@ -7,56 +7,57 @@
 
 import SwiftUI
 
+/// The main view of the app, providing tab-based navigation.
 struct MainView: View {
     
-    @EnvironmentObject var profileCoodrinator: ProfileCoordinator
-    @State var connetctedUser: User? = nil
-    private let cloudKitManager = GenericCloudKitManager()
+    /// Manages navigation within the profile section.
+    @EnvironmentObject var profileCoordinator: ProfileCoordinator
+    
+    /// Handles user-related data and CloudKit interactions.
+    @EnvironmentObject var userViewModel: UserViewModel
 
     var body: some View {
         TabView {
-            Text("Hello, World!")
+            feedTab
                 .tabItem {
                     Image(systemName: "house")
                     Text("Feed")
                 }
-            activeChats
+            chatTab
                 .tabItem {
                     Image(systemName: "message")
                     Text("Chat")
                 }
-            profile
+            profileTab
                 .tabItem {
                     Image(systemName: "person.crop.circle")
                     Text("Player")
                 }
         }
         .onAppear {
-            let predicate = NSPredicate(format: "uuid == %@", UserDefaults.standard.appleUserID ?? "User ID")
-            cloudKitManager.fetchAll(ofType: User.self, predicate: predicate) { result in
-                switch result {
-                case .success(let users):
-                    if let currentUser = users.first {
-                        self.connetctedUser = currentUser
-                    }
-                case .failure(let error):
-                    print("No user found: \(error)")
-                }
-            }
+            userViewModel.fetchUserByID() // Fetch user data when MainView appears.
         }
     }
     
-    var profile: some View {
-        ProfileContainerView(connetctedUser: $connetctedUser)
+    /// The main feed tab.
+    private var feedTab: some View {
+        Text("Hello, World!") // Replace with actual feed content.
     }
     
-    var activeChats: some View {
-        Text("Chats")
+    /// The active chats tab.
+    private var chatTab: some View {
+        Text("Chats") // Replace with an actual chat view.
     }
     
+    /// The profile tab containing the user's profile details.
+    private var profileTab: some View {
+        ProfileContainerView()
+            .environmentObject(profileCoordinator)
+    }
 }
 
 #Preview {
     MainView()
         .environmentObject(ProfileCoordinator())
+        .environmentObject(UserViewModel())
 }

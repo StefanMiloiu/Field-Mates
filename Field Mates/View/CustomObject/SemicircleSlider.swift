@@ -9,15 +9,16 @@ import CoreGraphics
 
 // MARK: - Semicircular Slider
 struct SemicircleSlider: View {
+    @EnvironmentObject var userViewModel: UserViewModel
     @Binding var selectedIndex: Int
     let labels: [String]
     
     private let totalPositions = 5
     private let radius: CGFloat = 100
     private let textOffset: CGFloat = 20  // Push labels outward
-    let connectedUser: User?
     @State private var dragPosition: CGPoint? = nil
     @State private var profilePictureURL: URL?
+    
     var body: some View {
         GeometryReader { geo in
             let centerX = geo.size.width / 2
@@ -64,9 +65,9 @@ struct SemicircleSlider: View {
                         DragGesture()
                             .onChanged { value in
                                 dragPosition = value.location
-                                selectedIndex = closestIndex(to: value.location, center: center)
                             }
-                            .onEnded { _ in
+                            .onEnded { value in
+                                selectedIndex = closestIndex(to: value.location, center: center)
                                 dragPosition = nil  // Reset so it snaps correctly
                             }
                     )
@@ -120,7 +121,7 @@ struct SemicircleSlider: View {
             }
         }
         .onAppear {
-            if let profilePicture = connectedUser?.profilePicture {
+            if let profilePicture = userViewModel.user?.profilePicture {
                 do {
                     self.profilePictureURL = try Data.fileURL(for: profilePicture)
                 } catch {

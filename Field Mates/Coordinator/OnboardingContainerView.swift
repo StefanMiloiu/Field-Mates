@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+/// A container view that manages the onboarding flow based on the current step.
 struct OnboardingContainerView: View {
+    
+    /// The onboarding coordinator that determines the current onboarding step.
     @EnvironmentObject var onboardingCoordinator: OnboardingCoordinator
     
     var body: some View {

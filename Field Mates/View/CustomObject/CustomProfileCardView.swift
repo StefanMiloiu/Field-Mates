@@ -11,12 +11,9 @@ import PhotosUI
 struct CustomProfileCardView: View {
     
     // MARK: - Properties
-    
+    @EnvironmentObject var userViewModel: UserViewModel
     /// URL for the user's profile picture (fetched from local storage or the cloud)
     let profilePictureURL: URL?
-    
-    /// Binding to the connected user, enabling updates to propagate to parent views
-    @Binding var connectedUser: User?
     
     /// User's email address
     let email: String
@@ -57,7 +54,7 @@ struct CustomProfileCardView: View {
                 Text(email)
                     .font(.headline)
                 
-                Text(connectedUser?.username ?? "Username")
+                Text(userViewModel.user?.username ?? "Username")
                     .font(.headline)
                 
                 Text("\(firstName) \(lastName)")
@@ -98,20 +95,10 @@ struct CustomProfileCardView: View {
                                     self.selectedImage = nil
                                     
                                     // Clear the connected user's profile picture
-                                    if var connectedUser = connectedUser {
+                                    if var connectedUser = userViewModel.user {
                                         connectedUser.profilePicture = nil
-                                        self.connectedUser = nil // Reset binding to trigger a UI update
-                                        self.connectedUser = connectedUser
-                                        
                                         // Update in CloudKit
-                                        cloudKitManager.update(connectedUser) { result in
-                                            switch result {
-                                            case .success:
-                                                print("Image cleared successfully")
-                                            case .failure(let error):
-                                                print("Failed to clear image: \(error)")
-                                            }
-                                        }
+                                        userViewModel.update(connectedUser)
                                     }
                                 },
                                 .cancel()
@@ -153,20 +140,11 @@ struct CustomProfileCardView: View {
                                 selectedImage = nil
                                 
                                 // Clear the connected user's profile picture
-                                if var connectedUser = connectedUser {
+                                if var connectedUser = userViewModel.user {
                                     connectedUser.profilePicture = nil
-                                    self.connectedUser = nil // Reset binding to trigger a UI update
-                                    self.connectedUser = connectedUser
                                     
                                     // Update in CloudKit
-                                    cloudKitManager.update(connectedUser) { result in
-                                        switch result {
-                                        case .success:
-                                            print("Image cleared successfully")
-                                        case .failure(let error):
-                                            print("Failed to clear image: \(error)")
-                                        }
-                                    }
+                                    userViewModel.update(connectedUser)
                                 }
                             },
                             .cancel()
@@ -200,17 +178,11 @@ struct CustomProfileCardView: View {
                    let uiImage = UIImage(data: data) {
                     
                     // Update the connected user's profile picture
-                    guard var connectedUser = connectedUser else { return }
+                    guard var connectedUser = userViewModel.user else { return }
                     selectedImage = uiImage
                     connectedUser.setProfilePicture(data)
-                    cloudKitManager.update(connectedUser) { result in
-                        switch result {
-                        case .success(_):
-                            print("Image updated successfully")
-                        case .failure(_):
-                            print("Failed to update image")
-                        }
-                    }
+                    userViewModel.user?.setProfilePicture(data)
+                    userViewModel.update(connectedUser)
                 }
             }
         }
@@ -230,7 +202,6 @@ struct CustomProfileCardView: View {
 #Preview {
     CustomProfileCardView(
         profilePictureURL: nil,
-        connectedUser: .constant(nil),
         email: "miloius@yahoo.com",
         lastName: "Miloiu",
         firstName: "Stefan"

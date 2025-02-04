@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct PersonalInformationView: View {
-    @Binding var connectedUser: User?
-    
+        
     var body: some View {
         Text("Hello, World!")
     }
 }
 
 #Preview {
-    PersonalInformationView(connectedUser: .constant(nil))
+    PersonalInformationView()
 }

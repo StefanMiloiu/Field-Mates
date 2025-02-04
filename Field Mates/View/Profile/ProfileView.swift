@@ -9,24 +9,22 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var coordinator: AppCoordinator
-    @State private var cloudKitManager = GenericCloudKitManager()
+    @EnvironmentObject var userViewModel: UserViewModel
     @State private var profilePicURL: URL?
     @State private var skillLevel: String = "Not Defined"
-    @Binding var connectedUser: User?
     
     var body: some View {
         VStack {
             //MARK: - Profile
             Section {
                 CustomProfileCardView(profilePictureURL: profilePicURL,
-                                      connectedUser: $connectedUser,
-                                      email: connectedUser?.email ?? "Could not retrieve email\n",
-                                      lastName: connectedUser?.lastName ?? "Could not retrieve last name\n",
-                                      firstName: connectedUser?.firstName ?? "Could not retrieve first name\n")
+                                      email: userViewModel.user?.email ?? "Could not retrieve email\n",
+                                      lastName: userViewModel.user?.lastName ?? "Could not retrieve last name\n",
+                                      firstName: userViewModel.user?.firstName ?? "Could not retrieve first name\n")
             }
             .onAppear {
-                if connectedUser != nil,
-                   let profileURL = connectedUser?.profilePicture {
+                if userViewModel.user != nil,
+                   let profileURL = userViewModel.user?.profilePicture {
                     do {
                         profilePicURL = try Data.fileURL(for: profileURL)
                     } catch {
@@ -43,7 +41,7 @@ struct ProfileView: View {
                         Button(action: {
                             coordinator.profileCoordinator.goToSkillLevel()
                         }) {
-                            CustomListRow(rowLabel: "\(connectedUser?.skillLevel?.localizedDescription() ?? "Not Specified")",
+                            CustomListRow(rowLabel: "\(userViewModel.user?.skillLevel?.localizedDescription() ?? "Not Specified")",
                                           rowContent: "Skill Level",
                                           rowTintColor: .red,
                                           rowIcon: "soccerball")
@@ -52,7 +50,7 @@ struct ProfileView: View {
                         Button(action: {
                             coordinator.profileCoordinator.goToPosition()
                         }) {
-                            CustomListRow(rowLabel: "\(connectedUser?.preferredPositionToString() ?? "Not Specified")",
+                            CustomListRow(rowLabel: "\(userViewModel.user?.preferredPosition?.localizedDescription() ?? "Not Specified")",
                                           rowContent: "Player position",
                                           rowTintColor: .red,
                                           rowIcon: "figure.australian.football")
@@ -99,12 +97,9 @@ struct ProfileView: View {
                     }
             }
         }
-        .onChange(of: connectedUser?.skillLevel) {
-            skillLevel = (connectedUser?.skillToString())!
-        }
     }
 }
 
 #Preview {
-    ProfileView(connectedUser: .constant(nil))
+    ProfileView()
 }

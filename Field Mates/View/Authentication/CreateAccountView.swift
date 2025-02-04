@@ -10,7 +10,7 @@ import CloudKit
 
 struct CreateAccountView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
-    
+    @EnvironmentObject var userViewModel: UserViewModel
     // MARK: - State for the User Input Fields
     @State private var userRecordID: CKRecord.ID? = nil
     @State private var username: String = ""
@@ -22,6 +22,9 @@ struct CreateAccountView: View {
     @State private var dateOfBirth: Date = Date() // You might want to use a default or optional value
     @State private var city: String = ""
     @State private var country: String = ""
+    @State private var skillLevel: SkillLevel? = nil
+    @State private var preferedPosition: Position? = nil
+    @State private var profilePicture: Data? = nil
     
     @State private var isUsernameTaken: Bool = false
     @State private var isAlreadyRegistered: Bool = false
@@ -100,6 +103,9 @@ struct CreateAccountView: View {
                             self.dateOfBirth = user.dateOfBirth ?? Date()
                             self.city = user.city ?? ""
                             self.country = user.country ?? ""
+                            self.skillLevel = user.skillLevel
+                            self.preferedPosition = user.preferredPosition
+                            self.profilePicture = user.profilePicture
                         }
                     } else {
                         DispatchQueue.main.async {
@@ -116,7 +122,7 @@ struct CreateAccountView: View {
         }
         .onChange(of: isActivated) {
             // Check if the username is taken and validate required fields
-            let predicate = NSPredicate(format: "username == %@", username)
+            let predicate = NSPredicate(format: "username == %@ AND uuid != %@", username, UserDefaults.standard.appleUserID ?? "1")
             cloudKitManager.fetchAll(ofType: User.self, predicate: predicate) { result in
                 switch result {
                 case .success(let users):
@@ -148,10 +154,10 @@ struct CreateAccountView: View {
                 firstName: firstName,
                 lastName: lastName,
                 bio: bio,
-                profilePicture: nil, // set if you have one
+                profilePicture: profilePicture, // set if you have one
                 dateOfBirth: dateOfBirth,
-                skillLevel: nil,
-                preferredPosition: nil,
+                skillLevel: skillLevel,
+                preferredPosition: preferedPosition,
                 signupDate: nil,
                 city: city,
                 country: country
@@ -161,6 +167,7 @@ struct CreateAccountView: View {
                 cloudKitManager.update(createdUser) { result in
                     switch result {
                     case .success(let user):
+                        userViewModel.user = user
                         print("Updated user: \(user)")
                     case .failure(let error):
                         print("Update error: \(error)")
@@ -170,6 +177,7 @@ struct CreateAccountView: View {
                 cloudKitManager.create(createdUser) { result in
                     switch result {
                     case .success(let user):
+                        userViewModel.user = user
                         print("Created user: \(user)")
                     case .failure(let error):
                         print("Creation error: \(error)")

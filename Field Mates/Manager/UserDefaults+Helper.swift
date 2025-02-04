@@ -7,49 +7,30 @@
 
 import Foundation
 
-/*
- UserDefaults.standard.set(userID, forKey: "appleUserID")
- UserDefaults.standard.set(true, forKey: "seenOnboarding")
- UserDefaults.standard.set(true, forKey: "isLoggedIn")
- */
+/// An extension of `UserDefaults` to simplify access to commonly used keys.
 extension UserDefaults {
     
+    /// A Boolean value indicating whether the user is logged in.
     var isLoggedIn: Bool {
-        get {
-            return bool(forKey: "isLoggedIn")
-        }
-        set {
-            set(newValue, forKey: "isLoggedIn")
-        }
+        get { bool(forKey: "isLoggedIn") }
+        set { set(newValue, forKey: "isLoggedIn") }
     }
     
+    /// A Boolean value indicating whether the user has completed the onboarding process.
     var seenOnboarding: Bool {
-        get {
-            return bool(forKey: "seenOnboarding")
-        }
-        set {
-            set(newValue, forKey: "seenOnboarding")
-        }
+        get { bool(forKey: "seenOnboarding") }
+        set { set(newValue, forKey: "seenOnboarding") }
     }
     
+    /// The unique identifier for the user when signing in with Apple.
     var appleUserID: String? {
-        get {
-            return string(forKey: "appleUserID")
-        }
-        set {
-            set(newValue, forKey: "appleUserID")
-        }
+        get { string(forKey: "appleUserID") }
+        set { set(newValue, forKey: "appleUserID") }
     }
     
+    /// The stored email address of the user.
     var email: String? {
-        get {
-            return string(forKey: "email")
-        }
-        set {
-            set(newValue, forKey: "email")
-        }
+        get { string(forKey: "email") }
+        set { set(newValue, forKey: "email") }
     }
-    
 }
-
-

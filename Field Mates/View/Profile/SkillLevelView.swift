@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct SkillLevelView: View {
-    @Binding var connectedUser: User?
-    @State private var selectedIndex: Int = 0
-    private let cloudKitManager = GenericCloudKitManager()
+    @State private var selectedIndex: Int = 4
+    @EnvironmentObject var userViewModel: UserViewModel
 
     let skillLevels = ["Beginner", "Intermediate", "Advanced", "Professional", "Unknown"]
     
@@ -20,7 +19,7 @@ struct SkillLevelView: View {
                 .font(.headline)
                 .padding()
             
-            SemicircleSlider(selectedIndex: $selectedIndex, labels: skillLevels, connectedUser: connectedUser)
+            SemicircleSlider(selectedIndex: $selectedIndex, labels: skillLevels)
                 .frame(height: 250)
             
             Spacer(minLength: 50) // Reserve space for the description to prevent layout shifts
@@ -53,34 +52,22 @@ struct SkillLevelView: View {
         }
         .onChange(of: selectedIndex) {
             guard selectedIndex != 4 else {
-                connectedUser?.skillLevel = nil
-                cloudKitManager.update(connectedUser!) { result in
-                    switch result {
-                    case .success(_):
-                        print("Succesfuly removed skill")
-                    case .failure(_):
-                        print("Failure removing skill")
-                    }
-                }
+                userViewModel.user?.skillLevel = nil
+                userViewModel.update(userViewModel.user!)
                 return
             }
-            var connectedUserCopy = connectedUser
+            guard userViewModel.user != nil,
+                  userViewModel.user?.skillLevel != SkillLevel.allCases[selectedIndex]
+            else { return }
+            var connectedUserCopy = userViewModel.user
             connectedUserCopy?.skillLevel = SkillLevel.allCases[selectedIndex]
-            connectedUser = nil
-            connectedUser = connectedUserCopy
-            guard connectedUser != nil else { return }
-            cloudKitManager.update(connectedUser!) { result in
-                switch result {
-                case .success(_):
-                    print("Succesfully updated skill")
-                case .failure(_):
-                    print("Failure updating skill")
-                }
-            }
+            userViewModel.user = nil
+            userViewModel.user = connectedUserCopy
+            userViewModel.update(userViewModel.user!)
         }
         .onAppear {
-            if connectedUser?.skillLevel != nil {
-                selectedIndex = Int((connectedUser?.skillLevel!)!.rawValue)
+            if userViewModel.user?.skillLevel != nil {
+                selectedIndex = Int((userViewModel.user?.skillLevel!)!.rawValue)
             }
         }
         .navigationBarTitle("Skill Level", displayMode: .inline)
@@ -88,5 +75,5 @@ struct SkillLevelView: View {
 }
 
 #Preview {
-    SkillLevelView(connectedUser: .constant(nil))
+    SkillLevelView()
 }

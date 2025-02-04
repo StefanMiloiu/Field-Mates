@@ -4,7 +4,7 @@
 //
 //  Created by Stefan Miloiu on 30.01.2025.
 //
-
+// Icloud status required for the app
 import Foundation
 import CloudKit
 

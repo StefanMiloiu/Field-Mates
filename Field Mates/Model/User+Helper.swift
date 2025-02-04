@@ -182,10 +182,10 @@ struct User: CloudKitObject {
     
     func preferredPositionToString() -> String {
         switch self.preferredPosition {
-        case .forward: return "Forward"
-        case .defender: return "Defender"
-        case .goalkeeper: return "Goalkeeper"
-        case .midfielder: return "Midfielder"
+        case .Forward: return "Forward"
+        case .Defender: return "Defender"
+        case .Goalkeeper: return "Goalkeeper"
+        case .Midfielder: return "Midfielder"
         case .none: return "Not Specified"
         }
     }
