@@ -36,7 +36,7 @@ struct PlayerPositionView: View {
         .onChange(of: selectedIndex) {
             guard selectedIndex != 4 else {
                 userViewModel.user?.preferredPosition = nil
-                userViewModel.update(userViewModel.user!)
+                userViewModel.updateUser(userViewModel.user!)
                 return
             }
             guard userViewModel.user != nil,
@@ -45,7 +45,7 @@ struct PlayerPositionView: View {
             connectedUserCopy?.preferredPosition = Position.allCases[selectedIndex]
             userViewModel.user = nil
             userViewModel.user = connectedUserCopy
-            userViewModel.update(userViewModel.user!)
+            userViewModel.updateUser(userViewModel.user!)
         }
         .onAppear {
             if userViewModel.user?.preferredPosition != nil {

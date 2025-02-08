@@ -89,6 +89,7 @@ class ProfileCoordinator: ObservableObject {
         case skillLevel
         case position
         case personalInformation
+        case editAccount
     }
     
     /// Navigates to the profile screen.
@@ -116,6 +117,13 @@ class ProfileCoordinator: ObservableObject {
         currentStep = .personalInformation
         let personalInformationView = UIHostingController(rootView: PersonalInformationView())
         navigationController?.pushViewController(personalInformationView, animated: true)
+    }
+    
+    /// Navigate to edit account
+    func goToEditAccount() {
+        currentStep = .editAccount
+        let editAccountView = UIHostingController(rootView: CreateAccountView())
+        navigationController?.pushViewController(editAccountView, animated: true)
     }
 }
 

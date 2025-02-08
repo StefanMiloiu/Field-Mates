@@ -11,11 +11,11 @@ struct SlideToUnlockView: View {
     @Binding var isUnlocked: Bool
     
     /// Lățimea totală a "track"-ului
-    private let sliderWidth: CGFloat = 350
+    private let sliderWidth: CGFloat = UIScreen.main.bounds.width * 0.8
     /// Înălțimea slider-ului
-    private let sliderHeight: CGFloat = 50
+    private let sliderHeight: CGFloat = 60
     /// Diametrul butonului care alunecă
-    private let knobDiameter: CGFloat = 50
+    private let knobDiameter: CGFloat = 60
     
     /// Pozitia curentă pe axa X a butonului
     @State private var dragOffset: CGFloat = 0
@@ -32,11 +32,11 @@ struct SlideToUnlockView: View {
             ///    a cărui lățime e = dragOffset + jumătate din diametrul knob-ului
             ///    ca să fie puțin „sub cerc”)
             RoundedRectangle(cornerRadius: sliderHeight / 2)
-                .fill(Color.gray.opacity(0.3)) // Ajustează opacitatea cum îți place
+                .fill(Color.gray.opacity(0.5)) // Ajustează opacitatea cum îți place
                 .frame(width: knobDiameter / 2 + dragOffset + knobDiameter / 2, height: sliderHeight)
             
             /// Eticheta "Slide to unlock" (poți folosi text, iconițe, ce dorești)
-            Text("Slide to create")
+            Text("Slide to confirm")
                 .foregroundColor(.gray)
                 .font(.system(size: 16, weight: .medium))
                 .position(x: sliderWidth / 2,
@@ -45,7 +45,7 @@ struct SlideToUnlockView: View {
             
             /// Butonul (knob-ul) pe care îl glisăm
             Circle()
-                .fill(Color.gray)
+                .fill(Color.appLightGray)
                 .frame(width: knobDiameter, height: knobDiameter)
                 .offset(x: dragOffset)
                 .shadow(radius: 3)
@@ -80,6 +80,11 @@ struct SlideToUnlockView: View {
                         }
                 )
         }
+        .onChange(of: isUnlocked) {
+            if !isUnlocked {
+                resetSlider()
+            }
+        }
         // Setezi fix dimensiunea slider-ului
         .frame(width: sliderWidth, height: sliderHeight)
         // Extinzi containerul pe tot ecranul și îl aliniez center
@@ -88,6 +93,16 @@ struct SlideToUnlockView: View {
     
     static func getPercentageDragged(from dragOffset: CGFloat, in sliderWidth: CGFloat) -> CGFloat {
         return dragOffset / sliderWidth
+    }
+    
+    private func resetSlider() {
+        withAnimation(.easeOut(duration: 0.3)) {
+            isAnimatingBack = true
+            dragOffset = 0
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            isAnimatingBack = false
+        }
     }
 }
 

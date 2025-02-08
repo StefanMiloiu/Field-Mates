@@ -13,9 +13,6 @@ struct ProfileContainerView: View {
     /// The coordinator responsible for managing profile-related navigation.
     @EnvironmentObject var coordinator: ProfileCoordinator
     
-    /// The user view model containing user-related data.
-    @EnvironmentObject var userViewModel: UserViewModel
-    
     var body: some View {
         NavigationStack {
             ProfileView()
@@ -46,6 +43,15 @@ struct ProfileContainerView: View {
                     )
                 ) {
                     PersonalInformationView()
+                        .toolbarBackground(.visible, for: .navigationBar)
+                }
+                .navigationDestination(
+                    isPresented: Binding(
+                        get: { coordinator.currentStep == .editAccount },
+                        set: { _ in coordinator.goToProfile() }
+                    )
+                ) {
+                    CreateAccountView()
                         .toolbarBackground(.visible, for: .navigationBar)
                 }
         }

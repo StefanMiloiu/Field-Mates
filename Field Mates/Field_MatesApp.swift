@@ -20,7 +20,7 @@ struct Field_MatesApp: App {
                     LaunchScreenView()
                 }
             }
-            .environmentObject(appDelegate.userViewModel) // Inject environment objects
+            .environmentObject(appDelegate.userViewModel)
             .environmentObject(launchScreenState)
         }
     }

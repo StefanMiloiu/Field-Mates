@@ -72,7 +72,7 @@ struct ProfileView: View {
                     .font(.subheadline)
                     .foregroundColor(.primary)) {
                         Button(action: {
-                            
+                            coordinator.profileCoordinator.goToEditAccount()
                         }) {
                             CustomListRow(rowLabel: "Edit account",
                                           rowContent: "",

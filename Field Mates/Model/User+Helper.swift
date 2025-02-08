@@ -8,7 +8,7 @@
 import CloudKit
 import Foundation
 
-struct User: CloudKitObject {
+struct User: CloudKitObject, Equatable {
     
     // MARK: - Conformance to Identifiable
     var id: String

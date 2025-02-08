@@ -98,7 +98,7 @@ struct CustomProfileCardView: View {
                                     if var connectedUser = userViewModel.user {
                                         connectedUser.profilePicture = nil
                                         // Update in CloudKit
-                                        userViewModel.update(connectedUser)
+                                        userViewModel.updateUser(connectedUser)
                                     }
                                 },
                                 .cancel()
@@ -144,7 +144,7 @@ struct CustomProfileCardView: View {
                                     connectedUser.profilePicture = nil
                                     
                                     // Update in CloudKit
-                                    userViewModel.update(connectedUser)
+                                    userViewModel.updateUser(connectedUser)
                                 }
                             },
                             .cancel()
@@ -182,7 +182,7 @@ struct CustomProfileCardView: View {
                     selectedImage = uiImage
                     connectedUser.setProfilePicture(data)
                     userViewModel.user?.setProfilePicture(data)
-                    userViewModel.update(connectedUser)
+                    userViewModel.updateUser(connectedUser)
                 }
             }
         }

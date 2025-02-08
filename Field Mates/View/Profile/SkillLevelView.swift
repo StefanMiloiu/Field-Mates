@@ -53,7 +53,7 @@ struct SkillLevelView: View {
         .onChange(of: selectedIndex) {
             guard selectedIndex != 4 else {
                 userViewModel.user?.skillLevel = nil
-                userViewModel.update(userViewModel.user!)
+                userViewModel.updateUser(userViewModel.user!)
                 return
             }
             guard userViewModel.user != nil,
@@ -63,7 +63,7 @@ struct SkillLevelView: View {
             connectedUserCopy?.skillLevel = SkillLevel.allCases[selectedIndex]
             userViewModel.user = nil
             userViewModel.user = connectedUserCopy
-            userViewModel.update(userViewModel.user!)
+            userViewModel.updateUser(userViewModel.user!)
         }
         .onAppear {
             if userViewModel.user?.skillLevel != nil {

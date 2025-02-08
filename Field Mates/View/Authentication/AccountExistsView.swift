@@ -16,7 +16,7 @@ struct AccountExistsView: View {
         ZStack {
             // Dimmed background overlay with a slight blur effect
             LinearGradient(
-                colors: [Color.green.opacity(1), Color.gray.opacity(0.1)],
+                colors: [Color.appDarkGreen.opacity(1), Color.gray.opacity(0.1)],
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -83,7 +83,10 @@ struct AccountExistsView: View {
                             .padding()
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray, Color.gray.opacity(0.75), Color.gray.opacity(0.50), Color.gray.opacity(0.25)]),
+                                    gradient: Gradient(colors: [Color.appDarkGreen.opacity(0.50),
+                                                                Color.appDarkGreen.opacity(0.50),
+                                                                Color.appDarkGreen.opacity(0.50),
+                                                                Color.appDarkGreen.opacity(0.50)]),
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )
@@ -114,6 +117,7 @@ struct AccountExistsView_Previews: PreviewProvider {
         AccountExistsView(
             email: "user@example.com"
         )
+        .environmentObject(AppCoordinator())
         .preferredColorScheme(.light)
     }
 }

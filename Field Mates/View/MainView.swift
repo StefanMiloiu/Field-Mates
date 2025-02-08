@@ -35,7 +35,9 @@ struct MainView: View {
                 }
         }
         .onAppear {
-            userViewModel.fetchUserByID() // Fetch user data when MainView appears.
+            if userViewModel.user == nil {
+                userViewModel.fetchUserByID() // Fetch user data when MainView appears.
+            }
         }
     }
     
