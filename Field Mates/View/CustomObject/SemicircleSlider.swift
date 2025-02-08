@@ -58,7 +58,7 @@ struct SemicircleSlider: View {
                 let position = dragPosition ?? pointForAngle(angle, center: center, radius: radius)
                 
                 Circle()
-                    .fill(Color.red)
+                    .fill(Color.appDarkGreen)
                     .frame(width: 24, height: 24)
                     .position(position)
                     .gesture(

@@ -93,7 +93,7 @@ struct CustomProfileCardView: View {
                                 .destructive(Text("Remove Image")) {
                                     // Clear the selected image
                                     self.selectedImage = nil
-                                    
+                                    userViewModel.user?.profilePicture = nil
                                     // Clear the connected user's profile picture
                                     if var connectedUser = userViewModel.user {
                                         connectedUser.profilePicture = nil
@@ -138,7 +138,8 @@ struct CustomProfileCardView: View {
                             },
                             .destructive(Text("Remove Image")) {
                                 selectedImage = nil
-                                
+                                userViewModel.user?.profilePicture = nil
+
                                 // Clear the connected user's profile picture
                                 if var connectedUser = userViewModel.user {
                                     connectedUser.profilePicture = nil

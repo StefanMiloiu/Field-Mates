@@ -17,12 +17,13 @@ struct CustomListRow: View {
     let rowIcon: String
     
     @State var destinationLink: String? = nil
-    
+    @Environment(\.colorScheme) var colorScheme // Detect the current color scheme
+
     var body: some View {
         LabeledContent {
             Text(rowLabel)
                 .fontWeight(.medium)
-                .foregroundStyle(.gray)
+                .foregroundStyle(colorScheme == .dark ? .white : .secondary)
             //MARK: - Open link in safari/(any) internet
             if destinationLink != nil {
                 Link("", destination: URL(string: destinationLink!)!)

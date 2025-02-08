@@ -59,11 +59,8 @@ struct ContentView: View {
                     OnboardingContainerView()
                         .environmentObject(coordinator.onboardingCoordinator)
                 case .main:
-                    MainView()
+                    MainContainerView()
                         .environmentObject(coordinator.mainCoordinator)
-                        .environmentObject(coordinator.profileCoordinator)
-                default:
-                    EmptyView()
                 }
             }
         }
@@ -72,6 +69,7 @@ struct ContentView: View {
             self.launchScreenState.dismiss()
         }
         .onAppear {
+            userViewModel.fetchUserByID()
             coordinator.start() // Determine the initial app flow.
         }
         .onReceive(NotificationCenter.default.publisher(for: .icloudAuthenticationRequired)) { _ in

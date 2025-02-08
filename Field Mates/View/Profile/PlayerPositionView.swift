@@ -21,17 +21,31 @@ struct PlayerPositionView: View {
             
             SemicircleSlider(selectedIndex: $selectedIndex, labels: allPositions)
                 .frame(height: 250)
+                .padding(.bottom, 50)
+
+            Text("\(allPositions[selectedIndex])")
+                .font(.title)
+                .fontWeight(.heavy)
+                .padding(.bottom)
             
-            Spacer(minLength: 50) // Reserve space for the description to prevent layout shifts
             
-            Text("The position is a crucial aspect of football, as it influences a player's role, responsibilities, and performance on the field.\n Be aware the this only means that this position is you FAVOURITE position, not that you will be assigned to this position in the future in any game.")
+            Text("The position is a crucial aspect of football, as it influences a player's role, responsibilities, and performance on the field.")
                 .font(.subheadline)
                 .padding()
                 .multilineTextAlignment(.center)
-            
-            Text("\(allPositions[selectedIndex])")
-                .font(.title)
+                .frame(maxWidth: .infinity)
+                .background(Color.appLightGray.opacity(0.6))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal)
+            Text("Be aware the this only means that this position is you FAVOURITE position, not that you will be assigned to this position in the future in any game.")
+                .font(.subheadline)
                 .padding()
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .background(Color.appLightGray.opacity(0.6))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal)
+            
         }
         .onChange(of: selectedIndex) {
             guard selectedIndex != 4 else {
@@ -59,4 +73,5 @@ struct PlayerPositionView: View {
 
 #Preview {
     PlayerPositionView()
+        .environmentObject(UserViewModel())
 }

@@ -16,15 +16,13 @@ class AppCoordinator: ObservableObject {
     
     let onboardingCoordinator = OnboardingCoordinator()
     let mainCoordinator = MainCoordinator()
-    let profileCoordinator = ProfileCoordinator()
     
     /// Defines the possible flows in the app.
     enum Flow {
         case onboarding
         case main
-        case profile
     }
-    
+
     /// Determines which flow to start based on login status.
     func start() {
         if UserDefaults.standard.isLoggedIn {
@@ -132,11 +130,12 @@ class ProfileCoordinator: ObservableObject {
 class MainCoordinator: ObservableObject {
     
     @Published var currentStep: MainStep = .home
+    let profileCoordinator = ProfileCoordinator()
     
     /// Represents the main sections of the app.
     enum MainStep {
         case home
-        case settings
+        case profile
     }
     
     /// Navigates to the home screen.
@@ -145,8 +144,8 @@ class MainCoordinator: ObservableObject {
     }
     
     /// Navigates to the settings screen.
-    func goToSettings() {
-        currentStep = .settings
+    func goToProfile() {
+        currentStep = .profile
     }
 }
 
