@@ -29,8 +29,23 @@ struct MainContainerView: View {
                             for: .navigationBar)
                         .toolbarBackground(.visible, for: .navigationBar)
                 }
+                .sheet(
+                    isPresented: Binding(
+                        get: { mainCoordinator.currentStep == .addMatchSheet },
+                        set: { isPresented in
+                            // When sheet is dismissed, go back to .home or some other step
+                            if !isPresented {
+                                mainCoordinator.goToHome()
+                            }
+                        }
+                    )
+                ) {
+                    // The content of your sheet
+                    AddMatchView()
+                        .presentationDetents([.large]) // or .height(400), etc., if you want
+                }
+
         }
-        .tint(.black)
     }
 }
 

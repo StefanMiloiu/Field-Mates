@@ -10,6 +10,8 @@ struct SlideToUnlockView: View {
     /// Markăm o legătură (binding) spre un Bool care indică dacă slider-ul a ajuns la final
     @Binding var isUnlocked: Bool
     
+    var isForMatch: Bool = false
+    
     /// Lățimea totală a "track"-ului
     private let sliderWidth: CGFloat = UIScreen.main.bounds.width * 0.8
     /// Înălțimea slider-ului
@@ -36,7 +38,7 @@ struct SlideToUnlockView: View {
                 .frame(width: knobDiameter / 2 + dragOffset + knobDiameter / 2, height: sliderHeight)
             
             /// Eticheta "Slide to unlock" (poți folosi text, iconițe, ce dorești)
-            Text("Slide to confirm")
+            Text(isForMatch ? "Slide to go further" : "Slide to confirm")
                 .foregroundColor(.gray)
                 .font(.system(size: 16, weight: .medium))
                 .position(x: sliderWidth / 2,
@@ -44,41 +46,81 @@ struct SlideToUnlockView: View {
                 .allowsHitTesting(false) // Să nu influențeze gesturile
             
             /// Butonul (knob-ul) pe care îl glisăm
-            Circle()
-                .fill(Color.appLightGray)
-                .frame(width: knobDiameter, height: knobDiameter)
-                .offset(x: dragOffset)
-                .shadow(radius: 3)
-                .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            // Dacă este încă în animație de revenire, oprim reacția la gesturi
-                            guard !isAnimatingBack else { return }
-                            
-                            // Calculează noua poziție, asigurându-te că nu iese în afara track-ului
-                            let translation = value.translation.width
-                            let newOffset = max(0, min(sliderWidth - knobDiameter, translation))
-                            dragOffset = newOffset
-                        }
-                        .onEnded { _ in
-                            let threshold = sliderWidth - knobDiameter - 10
-                            if dragOffset >= threshold {
-                                // Marchez slider-ul ca deblocat
-                                isUnlocked = true
-                                print(isUnlocked)
-                            } else {
-                                // Animatează revenirea butonului la poziția inițială
-                                withAnimation(.easeOut(duration: 0.3)) {
-                                    isAnimatingBack = true
-                                    dragOffset = 0
+            Group {
+                if isForMatch {
+                    Image("Ball")
+                        .resizable()
+                        .frame(width: knobDiameter, height: knobDiameter)
+                        .offset(x: dragOffset)
+                        .shadow(radius: 3)
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    // Dacă este încă în animație de revenire, oprim reacția la gesturi
+                                    guard !isAnimatingBack else { return }
+                                    
+                                    // Calculează noua poziție, asigurându-te că nu iese în afara track-ului
+                                    let translation = value.translation.width
+                                    let newOffset = max(0, min(sliderWidth - knobDiameter, translation))
+                                    dragOffset = newOffset
                                 }
-                                // După ce animația s-a încheiat, permite din nou gesturile
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    isAnimatingBack = false
+                                .onEnded { _ in
+                                    let threshold = sliderWidth - knobDiameter - 10
+                                    if dragOffset >= threshold {
+                                        // Marchez slider-ul ca deblocat
+                                        isUnlocked = true
+                                        print(isUnlocked)
+                                    } else {
+                                        // Animatează revenirea butonului la poziția inițială
+                                        withAnimation(.easeOut(duration: 0.3)) {
+                                            isAnimatingBack = true
+                                            dragOffset = 0
+                                        }
+                                        // După ce animația s-a încheiat, permite din nou gesturile
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            isAnimatingBack = false
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                )
+                        )
+                } else {
+                    Circle()
+                        .fill(Color.appLightGray)
+                        .frame(width: knobDiameter, height: knobDiameter)
+                        .offset(x: dragOffset)
+                        .shadow(radius: 3)
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    // Dacă este încă în animație de revenire, oprim reacția la gesturi
+                                    guard !isAnimatingBack else { return }
+                                    
+                                    // Calculează noua poziție, asigurându-te că nu iese în afara track-ului
+                                    let translation = value.translation.width
+                                    let newOffset = max(0, min(sliderWidth - knobDiameter, translation))
+                                    dragOffset = newOffset
+                                }
+                                .onEnded { _ in
+                                    let threshold = sliderWidth - knobDiameter - 10
+                                    if dragOffset >= threshold {
+                                        // Marchez slider-ul ca deblocat
+                                        isUnlocked = true
+                                        print(isUnlocked)
+                                    } else {
+                                        // Animatează revenirea butonului la poziția inițială
+                                        withAnimation(.easeOut(duration: 0.3)) {
+                                            isAnimatingBack = true
+                                            dragOffset = 0
+                                        }
+                                        // După ce animația s-a încheiat, permite din nou gesturile
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            isAnimatingBack = false
+                                        }
+                                    }
+                                }
+                        )
+                }
+            }
         }
         .onChange(of: isUnlocked) {
             if !isUnlocked {

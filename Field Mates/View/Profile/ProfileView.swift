@@ -32,7 +32,7 @@ struct ProfileView: View {
     var body: some View {
         ZStack {
             // MARK: - Background
-            Color.grayBackground.opacity(0.8)
+            Color.grayBackground.opacity(1)
                 .ignoresSafeArea(.all) // Sets the background for the entire view
             
             VStack {
@@ -91,6 +91,8 @@ struct ProfileView: View {
                     } header: {
                         Text("Profile")
                             .font(.subheadline)
+                            .foregroundStyle(colorScheme == .dark ? Color.black : .primary)
+                            .bold()
                     }
                     
                     // MARK: Account Settings Section
@@ -128,6 +130,7 @@ struct ProfileView: View {
                         HStack {
                             Text("Account Settings")
                                 .font(.subheadline)
+                                .foregroundStyle(colorScheme == .dark ? Color.black : .primary)
                                 .bold()
                         }
                     }

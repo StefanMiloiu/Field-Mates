@@ -76,6 +76,7 @@ struct AccountExistsView: View {
                     // Login button with a horizontal gradient background
                     Button(action: {
                         coordinator.didFinishOnboarding()
+                        coordinator.mainCoordinator.goToHome()
                     }) {
                         Text("Continue")
                             .fontWeight(.semibold)

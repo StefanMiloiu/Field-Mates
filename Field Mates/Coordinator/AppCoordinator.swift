@@ -136,6 +136,7 @@ class MainCoordinator: ObservableObject {
     enum MainStep {
         case home
         case profile
+        case addMatchSheet
     }
     
     /// Navigates to the home screen.
@@ -146,6 +147,10 @@ class MainCoordinator: ObservableObject {
     /// Navigates to the settings screen.
     func goToProfile() {
         currentStep = .profile
+    }
+    
+    func goToAddMatchSheet() {
+        currentStep = .addMatchSheet
     }
 }
 

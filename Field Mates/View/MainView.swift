@@ -4,6 +4,12 @@
 //
 //  Created by Stefan Miloiu on 31.01.2025.
 //
+//
+//  MainView.swift
+//  Field Mates
+//
+//  Created by Stefan Miloiu on 31.01.2025.
+//
 import SwiftUI
 
 /// The main view of the app, providing tab-based navigation.
@@ -11,29 +17,58 @@ struct MainView: View {
     
     /// Manages navigation within the profile section.
     @EnvironmentObject var coordinator: AppCoordinator
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     /// Handles user-related data and CloudKit interactions.
     @EnvironmentObject var userViewModel: UserViewModel
-
+    
     // Computed property for the profile picture URL
     @State private var profilePicURL: URL?
     
     // State to control the visibility of the popup
     @State private var isPopupVisible: Bool = false
     
+    @State var selectedNumber: Int = 4 // Default selection
+    @State var selectedPickerValue: String = "Beginner"
+    
+    @State var date: Date = Date()
+    @State var time: Date = Date()
+    @State var fullDate: Date = Date()
+    @State var isButtonActivated: Bool = false
+    @State var isUnlocked: Bool = false
+    
     var body: some View {
-        ZStack {
-            Color.grayBackground.edgesIgnoringSafeArea(.all).opacity(0.8)
+        ZStack(alignment: .center) {
+            // Background
+            Color.grayBackground.edgesIgnoringSafeArea(.all)
             
             // Popup view
             if isPopupVisible {
                 VStack {
-                    ArrowPopupView(isVisible: $isPopupVisible)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.spring(), value: isPopupVisible)
-                        .offset(x: -20)
-                    Spacer()
+                    ArrowPopupView(isVisible: $isPopupVisible, selectedNumber: $selectedNumber, selectedPickerValue: $selectedPickerValue,
+                                   date: $date, time: $time, fullDate: $fullDate,
+                                   isButtonActivated: $isButtonActivated,
+                                   isUnlocked: $isUnlocked)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .animation(.spring(), value: isPopupVisible)
+                    .offset(y: UIScreen.main.bounds.height > 700 ? -UIScreen.main.bounds.height / 11 : 0)
                 }
+            }
+            // Overlays (profile and grid buttons) are separated from the popup
+            VStack {
+                Spacer()
+            }
+        }
+        .onAppear {
+            updateProfilePicURL()
+        }
+        .onChange(of: userViewModel.user) {
+            updateProfilePicURL()
+        }
+        .onChange(of: isUnlocked) {
+            if isUnlocked {
+                coordinator.mainCoordinator.goToAddMatchSheet()
+                isUnlocked = false
             }
         }
         .overlay(alignment: .topTrailing, content: {
@@ -61,12 +96,21 @@ struct MainView: View {
             .padding(8)
             .padding(.leading, 5)
         })
-        .onAppear {
-            updateProfilePicURL()
-        }
-        .onChange(of: userViewModel.user) {
-            updateProfilePicURL()
-        }
+        .overlay(alignment: .top, content : {
+            if isPopupVisible {
+                Text("Host Match")
+                    .font(.title)
+                    .fontWeight(.heavy)
+                    .padding(.top, 20)
+                    .foregroundStyle(.appDarkGreen)
+            } else {
+                Text("Field Mates")
+                    .font(.title)
+                    .fontWeight(.heavy)
+                    .padding(.top, 20)
+                    .foregroundStyle(.appDarkGray)
+            }
+        })
     }
     
     private func updateProfilePicURL() {
@@ -85,35 +129,41 @@ struct MainView: View {
 // Popup View with Arrow
 struct ArrowPopupView: View {
     @Binding var isVisible: Bool
+    @Binding var selectedNumber: Int
+    @Binding var selectedPickerValue: String
     
+    @Binding var date: Date
+    @Binding var time: Date
+    @Binding var fullDate: Date
+    @Binding var isButtonActivated: Bool
+    @Binding var isUnlocked: Bool
     var body: some View {
-        HStack(spacing: 0) {
-            // Arrow
+        VStack(spacing: 5) {
+            HorizontalNumberPicker(selectedNumber: $selectedNumber)
+                .padding(.top)
+            
+            SkillLevelPickerView(selectedPickerValue: $selectedPickerValue)
+            
+            DateAndTimePicker(date: $date, time: $time, fullDate: $fullDate)
+            Spacer()
+            SlideToUnlockView(isUnlocked: $isUnlocked, isForMatch: true)
+        }
+        .frame(maxHeight: UIScreen.main.bounds.height > 700 ? UIScreen.main.bounds.height / 2 : UIScreen.main.bounds.height / 1.5)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.appDarkGray.opacity(0.1))
+                .shadow(color: .appDarkGreen, radius: 5)
+                .padding(.horizontal, 5)
+        )
+        .overlay(
             ArrowShape()
                 .fill(Color.appDarkGreen.opacity(1))
                 .frame(width: 40, height: 40)
-                .rotationEffect(.degrees(-90))
-                .offset(y: -10)
-            
-            // Popup content
-            VStack(spacing: 20) {
-                Text("Create a Match")
-                    .font(.headline)
-                
-                Button("Close") {
-                    withAnimation {
-                        isVisible = false
-                    }
-                }
-                .buttonStyle(.bordered)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.appDarkGray.opacity(0.1))
-                    .shadow(color: .appDarkGreen, radius: 5)
-            )
-        }
+                .rotationEffect(.degrees(0))
+                .offset(x: 8, y: -40),
+            alignment: .topLeading
+        )
+        .padding(.horizontal, 15)
     }
 }
 

@@ -255,7 +255,7 @@ struct CreateAccountView: View {
                 }
             }
             coordinator.didFinishOnboarding()
-            coordinator.mainCoordinator.profileCoordinator.goToProfile()
+            coordinator.mainCoordinator.goToHome()
         }
         // Use a stack style for iPhone to avoid side-by-side split view in landscape on iPad, for example.
         .navigationViewStyle(StackNavigationViewStyle())

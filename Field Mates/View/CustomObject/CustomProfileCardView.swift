@@ -12,6 +12,7 @@ struct CustomProfileCardView: View {
     
     // MARK: - Properties
     @EnvironmentObject var userViewModel: UserViewModel
+    @Environment(\.colorScheme) var colorScheme // Detect the current color scheme
     /// URL for the user's profile picture (fetched from local storage or the cloud)
     let profilePictureURL: URL?
     
@@ -53,12 +54,15 @@ struct CustomProfileCardView: View {
             VStack(spacing: 8) {
                 Text(email)
                     .font(.headline)
+                    .foregroundStyle(colorScheme == .dark ? Color.black : .primary)
                 
                 Text(userViewModel.user?.username ?? "Username")
                     .font(.headline)
+                    .foregroundStyle(colorScheme == .dark ? Color.black : .primary)
                 
                 Text("\(firstName) \(lastName)")
                     .font(.subheadline)
+                    .foregroundStyle(colorScheme == .dark ? Color.black : .primary)
             }
         }
         // MARK: - Bottom-Left Overlay (Icon)
